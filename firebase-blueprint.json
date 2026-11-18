@@ -1,0 +1,284 @@
+{
+  "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Authorized Capture Studio administrator account linked to Firebase Auth UID.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 200 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "role": { "type": "string", "enum": ["owner", "editor"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "name", "role", "createdAt", "updatedAt"]
+    },
+    "StudioSettings": {
+      "title": "StudioSettings",
+      "description": "Capture Studio branding, address, logo, and public contact settings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 64 },
+        "businessName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "tagline": { "type": "string", "maxLength": 200 },
+        "address": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "phonePrimary": { "type": "string", "maxLength": 40 },
+        "phoneSecondary": { "type": "string", "maxLength": 40 },
+        "whatsappNumber": { "type": "string", "maxLength": 40 },
+        "email": { "type": "string", "maxLength": 160 },
+        "websiteDomain": { "type": "string", "maxLength": 160 },
+        "logoUrl": { "type": "string", "maxLength": 1000 },
+        "defaultLanguage": { "type": "string", "enum": ["en", "hi", "both"] },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "businessName", "address", "ownerUid", "updatedAt"]
+    },
+    "Template": {
+      "title": "Template",
+      "description": "Reusable luxury digital wedding invitation design preset.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 64 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "themeKey": { "type": "string", "enum": ["rose", "royal", "minimal", "traditional"] },
+        "description": { "type": "string", "maxLength": 400 },
+        "previewImageUrl": { "type": "string", "maxLength": 1000 },
+        "primaryColor": { "type": "string", "maxLength": 20 },
+        "secondaryColor": { "type": "string", "maxLength": 20 },
+        "accentColor": { "type": "string", "maxLength": 20 },
+        "backgroundColor": { "type": "string", "maxLength": 20 },
+        "displayFont": { "type": "string", "maxLength": 80 },
+        "bodyFont": { "type": "string", "maxLength": 80 },
+        "animationStyle": { "type": "string", "enum": ["petals", "envelope", "royal-curtain", "subtle"] },
+        "isActive": { "type": "boolean" },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "themeKey", "primaryColor", "secondaryColor", "accentColor", "backgroundColor", "isActive", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "Client": {
+      "title": "Client",
+      "description": "Private client CRM record managed by Capture Studio admins.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "brideName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "groomName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "primaryContactName": { "type": "string", "maxLength": 120 },
+        "phone": { "type": "string", "maxLength": 40 },
+        "email": { "type": "string", "maxLength": 160 },
+        "city": { "type": "string", "maxLength": 120 },
+        "notes": { "type": "string", "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["active", "archived"] },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "brideName", "groomName", "status", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "Invitation": {
+      "title": "Invitation",
+      "description": "Dynamic wedding invitation record keyed by unique URL slug.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9\\-]+$", "minLength": 2, "maxLength": 80 },
+        "slug": { "type": "string", "pattern": "^[a-z0-9\\-]+$", "minLength": 2, "maxLength": 80 },
+        "clientId": { "type": "string", "maxLength": 128 },
+        "status": { "type": "string", "enum": ["draft", "published", "expired"] },
+        "isArchived": { "type": "boolean" },
+        "expiresAt": { "type": "string", "maxLength": 40 },
+        "brideName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "groomName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "brideNameHi": { "type": "string", "maxLength": 120 },
+        "groomNameHi": { "type": "string", "maxLength": 120 },
+        "brideBio": { "type": "string", "maxLength": 600 },
+        "groomBio": { "type": "string", "maxLength": 600 },
+        "coupleStory": { "type": "string", "maxLength": 2000 },
+        "bridePhotoUrl": { "type": "string", "maxLength": 1000 },
+        "groomPhotoUrl": { "type": "string", "maxLength": 1000 },
+        "couplePhotoUrl": { "type": "string", "maxLength": 1000 },
+        "weddingDate": { "type": "string", "maxLength": 30 },
+        "weddingTime": { "type": "string", "maxLength": 40 },
+        "language": { "type": "string", "enum": ["en", "hi", "both"] },
+        "ganeshVandana": { "type": "boolean" },
+        "ganeshVandanaText": { "type": "string", "maxLength": 400 },
+        "brideParents": { "type": "string", "maxLength": 300 },
+        "groomParents": { "type": "string", "maxLength": 300 },
+        "brideGrandparents": { "type": "string", "maxLength": 300 },
+        "groomGrandparents": { "type": "string", "maxLength": 300 },
+        "familyMessage": { "type": "string", "maxLength": 1200 },
+        "familyMessageHi": { "type": "string", "maxLength": 1200 },
+        "gotra": { "type": "string", "maxLength": 160 },
+        "familyCompliments": { "type": "array" },
+        "primaryVenueName": { "type": "string", "maxLength": 200 },
+        "primaryVenueAddress": { "type": "string", "maxLength": 400 },
+        "primaryMapUrl": { "type": "string", "maxLength": 1000 },
+        "thankYouMessage": { "type": "string", "maxLength": 800 },
+        "theme": { "type": "string", "enum": ["rose", "royal", "minimal", "traditional"] },
+        "customColors": { "type": "object" },
+        "typography": { "type": "string", "maxLength": 80 },
+        "animationStyle": { "type": "string", "enum": ["petals", "envelope", "royal-curtain", "subtle"] },
+        "musicTrack": { "type": "string", "enum": ["shehnai-bliss", "flute-serenity", "royal-sitar", "none"] },
+        "sectionsEnabled": { "type": "object" },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "slug", "status", "isArchived", "brideName", "groomName", "weddingDate", "language", "theme", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "WeddingEvent": {
+      "title": "WeddingEvent",
+      "description": "Scheduled wedding function or ceremony belonging to an invitation.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "invitationId": { "type": "string", "maxLength": 80 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "titleHi": { "type": "string", "maxLength": 140 },
+        "eventDate": { "type": "string", "maxLength": 40 },
+        "eventTime": { "type": "string", "maxLength": 60 },
+        "venue": { "type": "string", "maxLength": 200 },
+        "venueAddress": { "type": "string", "maxLength": 400 },
+        "googleMapsUrl": { "type": "string", "maxLength": 1000 },
+        "description": { "type": "string", "maxLength": 800 },
+        "sortOrder": { "type": "number" },
+        "isPublic": { "type": "boolean" },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "invitationId", "title", "eventDate", "sortOrder", "isPublic", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "GalleryPhoto": {
+      "title": "GalleryPhoto",
+      "description": "Ordered gallery photo item for a wedding invitation.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "invitationId": { "type": "string", "maxLength": 80 },
+        "imageUrl": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "caption": { "type": "string", "maxLength": 200 },
+        "sortOrder": { "type": "number" },
+        "isPublic": { "type": "boolean" },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "invitationId", "imageUrl", "sortOrder", "isPublic", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "Guest": {
+      "title": "Guest",
+      "description": "Private guest invitation list entry with phone/contact details for admin use only.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "invitationId": { "type": "string", "maxLength": 80 },
+        "guestName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "familyGroup": { "type": "string", "maxLength": 120 },
+        "phone": { "type": "string", "maxLength": 40 },
+        "personalNote": { "type": "string", "maxLength": 400 },
+        "inviteCode": { "type": "string", "maxLength": 80 },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "invitationId", "guestName", "inviteCode", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "GuestPass": {
+      "title": "GuestPass",
+      "description": "Publicly readable personalized guest salutation token containing zero PII.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 80 },
+        "invitationId": { "type": "string", "maxLength": 80 },
+        "guestName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "personalNote": { "type": "string", "maxLength": 400 },
+        "isPublic": { "type": "boolean" },
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "invitationId", "guestName", "isPublic", "ownerUid", "createdAt"]
+    },
+    "RSVP": {
+      "title": "RSVP",
+      "description": "Private RSVP response submitted by a wedding guest, readable only by studio admins.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "invitationId": { "type": "string", "maxLength": 80 },
+        "guestName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "phone": { "type": "string", "maxLength": 40 },
+        "attending": { "type": "string", "enum": ["attending", "declined", "maybe"] },
+        "guestsCount": { "type": "number" },
+        "eventsAttending": { "type": "array" },
+        "message": { "type": "string", "maxLength": 600 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "invitationId", "guestName", "attending", "guestsCount", "createdAt"]
+    },
+    "GuestWish": {
+      "title": "GuestWish",
+      "description": "Public guest message board blessing containing zero private contact PII.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "invitationId": { "type": "string", "maxLength": 80 },
+        "guestName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "cityOrRelation": { "type": "string", "maxLength": 120 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "isPublic": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "invitationId", "guestName", "message", "isPublic", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{adminUid}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Studio administrator accounts."
+    },
+    "/studioSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/StudioSettings" },
+      "description": "Public studio branding and contact settings."
+    },
+    "/templates/{templateId}": {
+      "schema": { "$ref": "#/entities/Template" },
+      "description": "Invitation design presets."
+    },
+    "/clients/{clientId}": {
+      "schema": { "$ref": "#/entities/Client" },
+      "description": "Private client records."
+    },
+    "/invitations/{invitationId}": {
+      "schema": { "$ref": "#/entities/Invitation" },
+      "description": "Wedding invitations keyed by URL slug."
+    },
+    "/invitations/{invitationId}/events/{eventId}": {
+      "schema": { "$ref": "#/entities/WeddingEvent" },
+      "description": "Events for a specific invitation."
+    },
+    "/invitations/{invitationId}/galleries/{photoId}": {
+      "schema": { "$ref": "#/entities/GalleryPhoto" },
+      "description": "Gallery photos for a specific invitation."
+    },
+    "/invitations/{invitationId}/guests/{guestId}": {
+      "schema": { "$ref": "#/entities/Guest" },
+      "description": "Private guest directory for an invitation."
+    },
+    "/invitations/{invitationId}/guestPasses/{passId}": {
+      "schema": { "$ref": "#/entities/GuestPass" },
+      "description": "Public personalized greeting token for an invitation."
+    },
+    "/invitations/{invitationId}/rsvps/{rsvpId}": {
+      "schema": { "$ref": "#/entities/RSVP" },
+      "description": "Private RSVP records for an invitation."
+    },
+    "/invitations/{invitationId}/wishes/{wishId}": {
+      "schema": { "$ref": "#/entities/GuestWish" },
+      "description": "Public guest blessings for an invitation."
+    }
+  }
+}

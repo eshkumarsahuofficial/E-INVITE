@@ -1,0 +1,6 @@
+{
+  "name": "Capture Studio — Digital Wedding Invitation Platform",
+  "description": "Luxury multi-client digital wedding invitation SaaS platform and studio console by Capture Studio, Gaindatola, Rajnandgaon.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

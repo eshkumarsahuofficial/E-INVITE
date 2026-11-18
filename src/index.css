@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Cormorant Garamond', 'Noto Serif Devanagari', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, .font-editorial {
+    text-wrap: balance;
+  }
+}
+
+.font-display-cormorant {
+  font-family: 'Cormorant Garamond', 'Noto Serif Devanagari', Georgia, serif;
+}
+
+.font-display-playfair {
+  font-family: 'Playfair Display', 'Noto Serif Devanagari', Georgia, serif;
+}
+
+.font-display-cinzel {
+  font-family: 'Cinzel', 'Noto Serif Devanagari', Georgia, serif;
+}
+
+.font-display-bodoni {
+  font-family: 'Bodoni Moda', 'Noto Serif Devanagari', Georgia, serif;
+}
+
+.font-body-lora {
+  font-family: 'Lora', 'Noto Serif Devanagari', Georgia, serif;
+}
+
+.font-body-jakarta {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+
+.font-mono-tabular {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(40px, 105vh, 0) rotate(260deg);
+    opacity: 0;
+  }
+}
+
+.animate-petal {
+  animation: petalFall var(--petal-duration, 11s) linear infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-petal {
+    animation: none !important;
+    display: none;
+  }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+}
